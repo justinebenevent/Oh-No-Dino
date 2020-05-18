@@ -21,6 +21,7 @@ example : level 2 "snowy forest" dino on skis
 - adding 3 lives for the dino
 - chose your dino : choice between different dino ,
 depending on size they need more or less feeding but they speed vary (small dino would need less unicorns so it'll be easier BUT would go faster so the difficulty increase. Big dino would need a lot to be full but would go a bit slower)
+- background music
 
 ## Data structure
 Classes and methods definition.
@@ -36,14 +37,34 @@ Definition of the different states and their transition (transition functions)
 
 
 ## Task
-Task definition in order of priority
+build Dom
+build Canvas
+draw Canvas
+
+draw character (blue square -> later dino)
+addeventlistener left and right arrow
+draw obstacles (green squares -> later trees)
+create loop y++
+collision -> end game
+
+create score board
+draw reward objects (pink squares -> later unicorns)
+collision -> earn 1 point
+end game after 20 points
+
+create win screen
+create game over screen
+create start screen
+
+implement images
+
 
 
 ## Links
 
 
 ### Trello
-[Link url](https://trello.com)
+https://trello.com/b/eD3wi0eb/oh-no-dino
 
 
 ### Git
