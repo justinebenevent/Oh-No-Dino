@@ -37,26 +37,26 @@ Definition of the different states and their transition (transition functions)
 
 
 ## Task
-build Dom
-build Canvas
-draw Canvas
+- build Dom
+- build Canvas
+- draw Canvas
 
-draw character (blue square -> later dino)
-addeventlistener left and right arrow
-draw obstacles (green squares -> later trees)
-create loop y++
-collision -> end game
+- draw character (blue square -> later dino)
+- addeventlistener left and right arrow
+- draw obstacles (green squares -> later trees)
+- create loop y++
+- collision -> end game
 
-create score board
-draw reward objects (pink squares -> later unicorns)
-collision -> earn 1 point
-end game after 20 points
+- create score board
+- draw reward objects (pink squares -> later unicorns)
+- collision -> earn 1 point
+- end game after 20 points
 
-create win screen
-create game over screen
-create start screen
+- create win screen
+- create game over screen
+- create start screen
 
-implement images
+- implement images
 
 
 
