@@ -1,0 +1,8 @@
+canvas {
+    border: 2px solid greenyellow;
+    display: block;
+    margin: 0 auto;
+    background: url('background1.png');
+    width: 500px;
+    height: 550px;
+}
