@@ -69,7 +69,7 @@ https://trello.com/b/eD3wi0eb/oh-no-dino
 
 ### Git
 URls for the project repo and deploy
-[Link Repo](http://github.com)
+https://github.com/justinebenevent/Oh-No-Dino.git
 [Link Deploy](http://github.com)
 
 
