@@ -1,16 +1,24 @@
+const tileHeight = 78;
+const tileWidth = 90;
+const unicornWidth = 50;
+
 class Dino {
     constructor(canvas) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.width = 85;
+        this.width = tileWidth;
         this.height = 70;
-        this.x = 200;
-        this.y = 480;
+        this.x = 108;
+        this.y = 475;
     }
     draw() {
         let dinoImg = new Image();
         dinoImg.src = 'dino2.png';
         ctx.drawImage(dinoImg, this.x, this.y, this.width, this.height);
+
+        // ctx.beginPath();
+        // ctx.rect(this.x, this.y, this.width, this.height);
+        // ctx.stroke();
     }
 }
 
@@ -18,8 +26,8 @@ class Tree {
     constructor(canvas, xposition) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.width = 90;
-        this.height = 78;
+        this.width = tileWidth;
+        this.height = tileHeight;
         this.x = xposition;
         this.y = 0;
     }
@@ -27,6 +35,10 @@ class Tree {
         let treeImg = new Image();
         treeImg.src = 'tree1.png';
         ctx.drawImage(treeImg, this.x, this.y, this.width, this.height);
+
+        // ctx.beginPath();
+        // ctx.rect(this.x, this.y, this.width, this.height);
+        // ctx.stroke();
     }
 }
 
@@ -34,7 +46,7 @@ class Unicorn {
     constructor(canvas, xposition) {
         this.canvas = canvas;
         this.ctx = canvas.getContext('2d');
-        this.width = 50;
+        this.width = unicornWidth;
         this.height = 45;
         this.x = xposition;
         this.y = 0;

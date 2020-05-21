@@ -5,19 +5,17 @@ let bg = new Image();
 bg.src = 'background1.png';
 
 let dino = new Dino(canvas);
-// let scoreboard = document.getElementById('scoreboard');
-// let scoreSpan = scoreboard.getElementsByTagName('span');
 let score = 0;
 let myObstacles = [];
 let intervalID = 0;
 let myRewards = [];
+let probabilityOfTree = 1 / 51;
+let probabilityOfUnicorn = 1 / 60;
 
-
-
-//loop
-1 // UPDATE
-2 // clear
-3 // redraw again
+//         //loop
+//         1 // UPDATE
+// 2 // clear
+// 3 // redraw again
 
 ctx.drawImage(bg, 0, 0);
 
@@ -28,6 +26,8 @@ function clearCanvas() {
 
 
 function gameStart() {
+    // location.href = 'index.html';
+
     intervalID = setInterval(function () {
         //update;
         //clear;
@@ -59,12 +59,17 @@ function keydownEvents(event) {
     }
 }
 
-function treesAppear() {
-    let randomAppear = Math.floor(Math.random() * 14);
-    let randomx = Math.floor(Math.random() * canvas.width - 90);
-    if (randomAppear === 1) {
-        let tree = new Tree(canvas, randomx);
+function randomXposition() {
+    let tileQuantity = Math.floor(canvas.width / tileWidth);
+    let randomTile = Math.floor(Math.random() * tileQuantity); // 0, 1, 2, 3 -> 0, 90, 180, 270
+    let randomx = (randomTile * tileWidth);
+    return randomx;
+}
 
+function treesAppear() {
+    let randomAppear = Math.floor(Math.random() / probabilityOfTree);
+    if (randomAppear === 1) {
+        let tree = new Tree(canvas, randomXposition());
         myObstacles.push(tree);
     }
 }
@@ -76,36 +81,78 @@ function moveObjects(anyArray) {
     });
 }
 
-function isColliding(object1, object2) {
-    if (
-        (object1.y + object1.height >= object2.y) &&
-        (((object1.x < object2.x + object2.width) && (object1.x > object2.x)) ||
-            ((object1.x + object1.width < object2.x + object2.width) &&
-                (object1.x + object1.width > object2.x)))) {
+// function isInside(point, rectangle) {
+//     if (point.x > rectangle.x &&
+//         point.x < rectangle.x + rectangle.width &&
+//         point.y > rectangle.y &&
+//         point.y < rectangle.y + rectangle.height) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// }
+
+function isColliding(object1, dino) {
+    const topDino = dino.y;
+    const bottomDino = dino.y + dino.height;
+    const leftDino = dino.x;
+    const rightDino = dino.x + dino.width;
+
+    const bottomTree = object1.y + object1.height;
+    const leftTree = object1.x;
+    const rightTree = object1.x + object1.width;
+
+    let topDinoCollission = bottomTree - 4 > topDino && bottomTree < bottomDino;
+    let leftDinoCollision = rightTree > leftDino && rightTree < rightDino;
+    let rightDinoCollision = leftTree < rightDino && leftTree > leftDino;
+    if ((topDinoCollission && leftDinoCollision) || (topDinoCollission && rightDinoCollision)) {
         return true;
-    } else {
-        return false;
     }
 }
+
+// const topRight = {
+//     x: object2.x + object2.width,
+//     y: object2.x
+// }    
+// cont bottomLeft = {
+//     x: object2.y + object2.height,
+//     y: object2.x
+// }     const topRight = {
+//     x: object2.x + object2.width,
+//     y: object2.x
+// }
+
+
+
+// if (
+//     (object1.y + object1.height > object2.y) && (object1.y + object1.height < object2.y + object2.height) &&
+//     ((object1.x < object2.x + object2.width) && (object1.x > object2.x)) ||
+//     ((object1.x + object1.width < object2.x + object2.width) &&
+//         (object1.x + object1.width > object2.x))) {
+//     return true;
+// } else {
+//     return false;
+// }
+// }
+
 
 function collisionTreeDino() {
     //checking collision
     for (let i = 0; i < myObstacles.length; i++) {
         if (isColliding(myObstacles[i], dino)) {
-            alert('GAME OVER');
+            // alert('GAME OVER');
             clearInterval(intervalID);
-            location.reload();
+            location.href = 'GameOverScreen.html';
+            // location.reload();
         }
     }
 }
 
 function unicornsAppear() {
-
-    let randomAppear = Math.floor(Math.random() * 14);
-    let randomx = Math.floor(Math.random() * canvas.width - 50);
+    const unicornXposition = (tileWidth / 2) - (unicornWidth / 2);
+    let randomAppear = Math.floor(Math.random() / probabilityOfUnicorn);
     if (randomAppear === 1) {
-        let unicorn = new Unicorn(canvas, randomx);
-
+        let unicorn = new Unicorn(canvas, randomXposition() + unicornXposition); // second argument : shifts the unicorn that mount to the right 
         myRewards.push(unicorn);
     }
 }
@@ -121,6 +168,10 @@ function collisionTreeUnicorn() {
             score++;
             unicornThatCollidedIndex = i;
             collisionHappened = true;
+            if (score == 20) {
+                clearInterval(intervalID);
+                location.href = 'WinScreen.html';
+            }
         }
     }
     if (collisionHappened) {
