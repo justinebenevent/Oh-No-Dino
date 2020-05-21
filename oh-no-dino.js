@@ -5,11 +5,13 @@ let bg = new Image();
 bg.src = 'background1.png';
 
 let dino = new Dino(canvas);
-let scoreboard = document.getElementById('scoreboard')
-let score = scoreboard.getElementsByTagName('span');
+// let scoreboard = document.getElementById('scoreboard');
+// let scoreSpan = scoreboard.getElementsByTagName('span');
+let score = 0;
 let myObstacles = [];
 let intervalID = 0;
 let myRewards = [];
+
 
 
 //loop
@@ -18,6 +20,7 @@ let myRewards = [];
 3 // redraw again
 
 ctx.drawImage(bg, 0, 0);
+
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -33,11 +36,19 @@ function gameStart() {
         dino.draw();
         treesAppear();
         unicornsAppear();
-        moveTrees();
-        moveUnicorns();
+        moveObjects(myObstacles);
+        moveObjects(myRewards);
         collisionTreeDino();
         collisionTreeUnicorn();
+        refreshScore();
     }, 50);
+}
+
+function refreshScore() {
+    scoreSpan = score;
+    ctx.fillStyle = "white";
+    ctx.font = "20px Arial";
+    ctx.fillText('Score: ' + score, 10, 30); // display the score
 }
 
 function keydownEvents(event) {
@@ -50,7 +61,7 @@ function keydownEvents(event) {
 
 function treesAppear() {
     let randomAppear = Math.floor(Math.random() * 14);
-    let randomx = Math.floor(Math.random() * canvas.width);
+    let randomx = Math.floor(Math.random() * canvas.width - 90);
     if (randomAppear === 1) {
         let tree = new Tree(canvas, randomx);
 
@@ -58,17 +69,29 @@ function treesAppear() {
     }
 }
 
-function moveTrees() {
-    myObstacles.forEach(function (tree) {
-        tree.y += 6;
-        tree.draw();
+function moveObjects(anyArray) {
+    anyArray.forEach(function (element) {
+        element.y += 4;
+        element.draw();
     });
+}
+
+function isColliding(object1, object2) {
+    if (
+        (object1.y + object1.height >= object2.y) &&
+        (((object1.x < object2.x + object2.width) && (object1.x > object2.x)) ||
+            ((object1.x + object1.width < object2.x + object2.width) &&
+                (object1.x + object1.width > object2.x)))) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function collisionTreeDino() {
     //checking collision
     for (let i = 0; i < myObstacles.length; i++) {
-        if ((myObstacles[i].y + myObstacles[i].height >= dino.y) && (((myObstacles[i].x < dino.x + dino.width) && (myObstacles[i].x > dino.x)) || ((myObstacles[i].x + myObstacles[i].width < dino.x + dino.width) && (myObstacles[i].x + myObstacles[i].width > dino.x)))) {
+        if (isColliding(myObstacles[i], dino)) {
             alert('GAME OVER');
             clearInterval(intervalID);
             location.reload();
@@ -79,7 +102,7 @@ function collisionTreeDino() {
 function unicornsAppear() {
 
     let randomAppear = Math.floor(Math.random() * 14);
-    let randomx = Math.floor(Math.random() * canvas.width);
+    let randomx = Math.floor(Math.random() * canvas.width - 50);
     if (randomAppear === 1) {
         let unicorn = new Unicorn(canvas, randomx);
 
@@ -87,21 +110,24 @@ function unicornsAppear() {
     }
 }
 
-function moveUnicorns() {
-    myRewards.forEach(function (unicorn) {
-        unicorn.y += 5;
-        unicorn.draw();
-    });
-}
-
 function collisionTreeUnicorn() {
+    let unicornThatCollidedIndex = 0;
+    let collisionHappened = false;
     //checking collision
     for (let i = 0; i < myRewards.length; i++) {
-        if ((myRewards[i].y + myRewards[i].height >= dino.y) && (((myRewards[i].x < dino.x + dino.width) && (myRewards[i].x > dino.x)) || ((myRewards[i].x + myRewards[i].width < dino.x + dino.width) && (myRewards[i].x + myRewards[i].width > dino.x)))) {
-            score += 1;
+        const unicorn = myRewards[i];
+        if (isColliding(unicorn, dino)) {
+            // here is when it collided
+            score++;
+            unicornThatCollidedIndex = i;
+            collisionHappened = true;
         }
     }
+    if (collisionHappened) {
+        myRewards.splice(unicornThatCollidedIndex, 1);
+    }
 }
+
 
 
 window.addEventListener('load', gameStart);

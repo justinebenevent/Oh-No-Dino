@@ -11,7 +11,6 @@ class Dino {
         let dinoImg = new Image();
         dinoImg.src = 'dino2.png';
         ctx.drawImage(dinoImg, this.x, this.y, this.width, this.height);
-
     }
 }
 
