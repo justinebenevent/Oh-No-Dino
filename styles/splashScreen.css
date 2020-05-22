@@ -1,0 +1,13 @@
+#header {
+    background-image: url("../illustrations/bgSplashScreen.PNG");
+    background-size: cover;
+    width: auto;
+    height: 600px;
+    color: white;
+    text-align: center;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

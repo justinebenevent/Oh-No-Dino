@@ -2,7 +2,7 @@ const canvas = document.getElementById('main-canvas');
 const ctx = canvas.getContext('2d');
 
 let bg = new Image();
-bg.src = 'background1.png';
+bg.src = 'background1.PNG';
 
 let dino = new Dino(canvas);
 let score = 0;
@@ -11,6 +11,9 @@ let intervalID = 0;
 let myRewards = [];
 let probabilityOfTree = 1 / 51;
 let probabilityOfUnicorn = 1 / 60;
+let ohnoSound = new Audio('ohno.mp3');
+let eatSound = new Audio('eat.mp3');
+
 
 //         //loop
 //         1 // UPDATE
@@ -91,6 +94,23 @@ function moveObjects(anyArray) {
 //         return false;
 //     }
 // }
+// const topRight = {
+//     x: object2.x + object2.width,
+//     y: object2.y
+// }    
+// cont bottomRight = {
+//     x: object2.x + object2.width,
+//     y: object2.y + object2.height
+// }     
+// const topLeft = {
+//     x: object2.x,
+//     y: object2.y
+// }
+// const bottomLeft = {
+//     x: object2.x,
+//     y: object2.y + object2.height
+// }
+
 
 function isColliding(object1, dino) {
     const topDino = dino.y;
@@ -110,30 +130,6 @@ function isColliding(object1, dino) {
     }
 }
 
-// const topRight = {
-//     x: object2.x + object2.width,
-//     y: object2.x
-// }    
-// cont bottomLeft = {
-//     x: object2.y + object2.height,
-//     y: object2.x
-// }     const topRight = {
-//     x: object2.x + object2.width,
-//     y: object2.x
-// }
-
-
-
-// if (
-//     (object1.y + object1.height > object2.y) && (object1.y + object1.height < object2.y + object2.height) &&
-//     ((object1.x < object2.x + object2.width) && (object1.x > object2.x)) ||
-//     ((object1.x + object1.width < object2.x + object2.width) &&
-//         (object1.x + object1.width > object2.x))) {
-//     return true;
-// } else {
-//     return false;
-// }
-// }
 
 
 function collisionTreeDino() {
@@ -144,6 +140,7 @@ function collisionTreeDino() {
             clearInterval(intervalID);
             location.href = 'GameOverScreen.html';
             // location.reload();
+            ohnoSound.play();
         }
     }
 }
@@ -168,7 +165,7 @@ function collisionTreeUnicorn() {
             score++;
             unicornThatCollidedIndex = i;
             collisionHappened = true;
-            if (score == 20) {
+            if (score == 3) {
                 clearInterval(intervalID);
                 location.href = 'WinScreen.html';
             }
@@ -176,6 +173,7 @@ function collisionTreeUnicorn() {
     }
     if (collisionHappened) {
         myRewards.splice(unicornThatCollidedIndex, 1);
+        audio.play(eatSound);
     }
 }
 
