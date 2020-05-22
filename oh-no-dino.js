@@ -2,7 +2,7 @@ const canvas = document.getElementById('main-canvas');
 const ctx = canvas.getContext('2d');
 
 let bg = new Image();
-bg.src = 'background1.PNG';
+bg.src = 'background1.png';
 
 let dino = new Dino(canvas);
 let score = 0;
@@ -12,6 +12,7 @@ let myRewards = [];
 let probabilityOfTree = 1 / 51;
 let probabilityOfUnicorn = 1 / 60;
 let eatSound = new Audio('eat.mp3');
+let bgMusic = new Audio('bgMusic.mp3');
 
 
 //         //loop
@@ -35,6 +36,7 @@ function gameStart() {
         //clear;
         clearCanvas();
         //redraw;
+        bgMusic.play();
         dino.draw();
         treesAppear();
         unicornsAppear();

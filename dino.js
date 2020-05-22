@@ -13,7 +13,7 @@ class Dino {
     }
     draw() {
         let dinoImg = new Image();
-        dinoImg.src = 'dino2.png';
+        dinoImg.src = 'dino.png';
         ctx.drawImage(dinoImg, this.x, this.y, this.width, this.height);
 
         // ctx.beginPath();
