@@ -11,7 +11,6 @@ let intervalID = 0;
 let myRewards = [];
 let probabilityOfTree = 1 / 51;
 let probabilityOfUnicorn = 1 / 60;
-let ohnoSound = new Audio('ohno.mp3');
 let eatSound = new Audio('eat.mp3');
 
 
@@ -140,7 +139,6 @@ function collisionTreeDino() {
             clearInterval(intervalID);
             location.href = 'GameOverScreen.html';
             // location.reload();
-            ohnoSound.play();
         }
     }
 }
@@ -162,6 +160,7 @@ function collisionTreeUnicorn() {
         const unicorn = myRewards[i];
         if (isColliding(unicorn, dino)) {
             // here is when it collided
+            eatSound.play();
             score++;
             unicornThatCollidedIndex = i;
             collisionHappened = true;
@@ -173,7 +172,6 @@ function collisionTreeUnicorn() {
     }
     if (collisionHappened) {
         myRewards.splice(unicornThatCollidedIndex, 1);
-        audio.play(eatSound);
     }
 }
 
