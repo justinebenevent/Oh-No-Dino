@@ -15,10 +15,10 @@ let eatSound = new Audio('eat.mp3');
 let bgMusic = new Audio('bgMusic.mp3');
 
 
-//         //loop
-//         1 // UPDATE
-// 2 // clear
-// 3 // redraw again
+// LOOP
+// 1 update
+// 2 clear
+// 3 draw again
 
 
 
