@@ -23,7 +23,7 @@ let eatSound = new Audio('eat.mp3');
 
 function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(bg, 0, 0);
+    ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 }
 
 
