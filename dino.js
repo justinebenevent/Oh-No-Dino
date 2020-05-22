@@ -53,7 +53,7 @@ class Unicorn {
     }
     draw() {
         let unicornImg = new Image();
-        unicornImg.src = 'unicorn.PNG';
+        unicornImg.src = 'unicorn.png';
         ctx.drawImage(unicornImg, this.x, this.y, this.width, this.height);
     }
 }
